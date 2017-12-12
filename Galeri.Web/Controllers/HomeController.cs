@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Web;
 using System.Web.Mvc;
 
 namespace Galeri.Web.Controllers
@@ -13,18 +10,15 @@ namespace Galeri.Web.Controllers
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult Upload()
         {
-            ViewBag.Message = "Your application description page.";
-
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult FileUpload()
         {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            HttpPostedFileBase file = HttpContext.Request.Files[0];
+            return Json("");
         }
     }
 }
