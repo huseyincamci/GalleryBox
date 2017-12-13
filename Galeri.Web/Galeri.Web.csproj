@@ -136,6 +136,7 @@
     <Compile Include="Models\Dosya.cs">
       <DependentUpon>Galeri.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\File.cs" />
     <Compile Include="Models\Galeri.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -209,9 +210,6 @@
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="favicon.ico" />
-    <Content Include="Files\25a15da997d184161a5792a85be6c795.jpg" />
-    <Content Include="Files\8d469516f8b656e19913555504a07463.jpg" />
-    <Content Include="Files\da76310d7f36f3d58fc4fd0e6c9e7c45.jpg" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -282,6 +280,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Upload.cshtml" />
+    <Content Include="Views\Home\Galeri.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

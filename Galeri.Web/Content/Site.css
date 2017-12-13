@@ -1,6 +1,7 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-color: #eeeeee;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -24,3 +25,37 @@ textarea {
     border: 1px solid #ddd;
     padding: 10px;
 }
+
+.progress {
+    position: relative;
+    z-index: 1;
+    height: 13px;
+    border-radius: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.breadcrumb {
+    background-color: #ffffff;
+    font-size: 1.7em;
+}
+
+.box {
+    padding-top: 20px;
+}
+
+.bg-renk-1 {
+    background-color: #9c27b0;
+    height: 150px;
+}
+
+.bg-renk-2 {
+    background-color: aquamarine;
+    height: 150px;
+}
+
+    .bg-renk-1 a,
+    .bg-renk-2 a {
+        color: #fff;
+        text-decoration: none;
+    }

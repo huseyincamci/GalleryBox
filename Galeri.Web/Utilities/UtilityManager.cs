@@ -5,7 +5,7 @@ namespace Galeri.Web.Utilities
     public class UtilityManager
     {
         private static readonly string[] DosyaTipleri = { "excel", "sheet", "pdf", "word", "presentation", "octet-stream", "image", "text", "audio", "video" };
-        private static readonly string[] DosyaIconlari = { "fa fa-file-excel-o", "fa fa-file-excel-o", "fa fa-file-pdf-o", "fa fa-file-word-o", "fa fa-file-powerpoint-o", "fa fa-file-archive-o", "fa fa-image", "fa file-text", "fa fa-sound-o", "fa fa-play" };
+        private static readonly string[] DosyaIconlari = { "fa fa-file-excel-o", "fa fa-file-excel-o", "fa fa-file-pdf-o", "fa fa-file-word-o", "fa fa-file-powerpoint-o", "fa fa-file-archive-o", "fa fa-image", "fa fa-file-text", "fa fa-sound-o", "fa fa-play" };
         private static readonly string[] DosyaClass = { "bg-green-2", "bg-green-2", "bg-pdf", "bg-blue", "bg-orange", "bg-archive", "bg-archive", "bg-archive", "bg-sound", "bg-sound" };
 
         public static byte[] ByteBirlestir(byte[] previous, byte[] next)

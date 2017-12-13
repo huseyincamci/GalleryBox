@@ -21,13 +21,21 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Upload", "Upload", "Home")</li>
+                    <li>@Html.ActionLink("Dosya Yükle", "Upload", "Home")</li>
+                    <li>@Html.ActionLink("Galeri Yönetimi", "Galeri", "Home")</li>
                 </ul>
             </div>
         </div>
     </div>
     <div class="container body-content">
+        <div class="row">
+            <div class="col-md-12">
+                <ol class="breadcrumb" style="margin-top: 30px;">
+                    <li><a href="#">@RenderSection("title", false)</a></li>
+                </ol>
+            </div>
+        </div>
+
         @RenderBody()
         <hr />
         <footer>

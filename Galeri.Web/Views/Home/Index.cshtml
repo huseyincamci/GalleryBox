@@ -4,6 +4,8 @@
 @{
     ViewBag.Title = "Anasayfa";
 }
+@section title{Anasayfa}
+
 @section styles
 {
     <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
@@ -14,113 +16,16 @@
 @{
 
 }
-<div class="container" style="margin-top: 25px">
-    <div class="row">
-        @foreach (var dosya in Model)
-        {
-            <div class="col-lg-3 col-sm-6">
-                <div class="card hovercard">
-                    <div class="cardheader @dosya.Renk">
-                        <a href="#fileEditModal" data-toggle="modal">
-                            <i class="fa fa-edit pull-right" id="card-edit"></i>
-                        </a>
-                    </div>
-                    <div class="avatar">
-                        <i class="@dosya.Ikon card-icon" aria-hidden="true"></i>
-                    </div>
-                    <div class="info">
-                        <div class="title">
-                            @dosya.DosyaAdi
-                        </div>
-                    </div>
-                    <div class="bottom">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <i class="fa fa-hdd-o"></i> @dosya.BoyutKisaltma
-                            </div>
-                            <div class="col-md-6">
-                                <i class="@dosya.Ikon"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        }
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="box bg-renk-1 text-center">
+            <h3><a href="@Url.Action("Upload", "Home")"><i class="fa fa-download"></i><br /> Dosya Yükle</a></h3>
+        </div>
     </div>
-    @*modal*@
-
-    <div class="modal img-modal" id="fileEditModal">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-6 modal-image">
-                            <img class="img-responsive " src="~/Files/da76310d7f36f3d58fc4fd0e6c9e7c45.jpg">
-                            <img class="img-responsive hidden" src="~/Files/25a15da997d184161a5792a85be6c795.jpg" />
-                            <img class="img-responsive hidden" src="~/Files/8d469516f8b656e19913555504a07463.jpg" />
-                            <a href="" class="img-modal-btn left"><i class="glyphicon glyphicon-chevron-left"></i></a>
-                            <a href="" class="img-modal-btn right"><i class="glyphicon glyphicon-chevron-right"></i></a>
-                        </div>
-                        <div class="col-md-6 modal-meta">
-                            <div class="modal-meta-top">
-                                @*<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>*@
-                                @*Dosya Düzenleme*@
-                                <div class="form-area">
-                                    <form role="form">
-                                        <br style="clear: both">
-                                        <div class="form-group">
-                                            <label class="control-label"><i class="fa fa-file-text"></i> Orjinal Adı: </label>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="control-label"><i class="fa fa-hdd-o"></i> Boyutu: </label>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="control-label"><i class="fa fa-file"></i> Dosya Tipi: </label>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="control-label"> Url: </label>
-                                            <input type="text" disabled="disabled" class="form-control has-success" value="http://example.com">
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="control-label"><i class="fa fa-file-text"></i> Başlık: </label>
-                                            <input type="text" class="form-control" placeholder="Başlık">
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="control-label"><i class="fa fa-file-text"></i> Açıklama: </label>
-                                            <textarea class="form-control" placeholder="Açıklama"></textarea>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="modal-footer">
-                    <div class="pull-left">
-                        <button type="button" class="btn btn-primary">
-                            <i class="fa fa-download"></i> Dosyayı İndir
-                        </button>
-                        <button type="button" class="btn btn-warning">
-                            <i class="fa fa-eye"></i> Önizle
-                        </button>
-                    </div>
-
-                    <div class="pull-right">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">
-                            <i class="fa fa-close"></i> Kapat
-                        </button>
-                        <button type="button" class="btn btn-success">
-                            <i class="fa fa-check"></i> Kaydet
-                        </button>
-                    </div>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
+    <div class="col-md-6">
+        <div class="box bg-renk-2 text-center">
+            <h3><a href="@Url.Action("Galeri", "Home")"><i class="fa fa-image"></i> <br />Galeri Yönetimi</a></h3>
+        </div>
     </div>
 </div>
-
-@section scripts
-{
-    <script src="~/Scripts/model-box.js"></script>
-}

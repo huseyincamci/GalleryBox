@@ -1,0 +1,162 @@
+﻿@using Galeri.Web.Models
+@model IEnumerable<Galeri.Web.Models.Dosya>
+
+@{
+    ViewBag.Title = "Anasayfa";
+}
+
+@section title{Galeri Yönetimi}
+
+@section styles
+{
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/card.css" rel="stylesheet" />
+    <link href="~/Content/model-box.css" rel="stylesheet" />
+    <link href="~/Content/file-edit-form.css" rel="stylesheet" />
+}
+@{
+
+}
+<div class="row">
+    @foreach (var dosya in Model)
+    {
+        <div class="col-lg-3 col-sm-6">
+            <div class="card hovercard">
+                <div class="cardheader @dosya.Renk">
+                    <a href="#fileEditModal" data-toggle="modal" onclick="funcGetFileDetail(@dosya.Id)">
+                        <i class="fa fa-edit pull-right" id="card-edit"></i>
+                    </a>
+                </div>
+                <div class="avatar">
+                    <i class="@dosya.Ikon card-icon" aria-hidden="true"></i>
+                </div>
+                <div class="info">
+                    <div class="title">
+                        @dosya.DosyaAdi
+                    </div>
+                </div>
+                <div class="bottom">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <i class="fa fa-hdd-o"></i> @dosya.BoyutKisaltma
+                        </div>
+                        <div class="col-md-6">
+                            <i class="@dosya.Ikon"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+@*modal*@
+
+<div class="modal img-modal" id="fileEditModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6 modal-image" id="file-content">
+                        <a href="" class="img-modal-btn left"><i class="glyphicon glyphicon-chevron-left"></i></a>
+                        <a href="" class="img-modal-btn right"><i class="glyphicon glyphicon-chevron-right"></i></a>
+                    </div>
+                    <div class="col-md-6 modal-meta">
+                        <div class="modal-meta-top">
+                            @*<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>*@
+                            @*Dosya Düzenleme*@
+                            <div class="form-area">
+                                <form role="form">
+                                    <br style="clear: both">
+                                    <div class="form-group">
+                                        <label class="control-label"><i class="fa fa-file-text"></i> <span id="orjinal-adi"> </span> </label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label"><i class="fa fa-hdd-o"></i> <span id="dosya-boyutu"></span> </label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label"><i class="fa fa-file"></i> <span id="dosya-tipi"></span> </label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label"> Url: </label>
+                                        <input type="text" id="url-yolu" disabled="disabled" class="form-control has-success" value="http://example.com">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label"><i class="fa fa-file-text"></i> Başlık: </label>
+                                        <input type="text" id="dosya-baslik" class="form-control" placeholder="Başlık">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label"><i class="fa fa-file-text"></i> Açıklama: </label>
+                                        <textarea class="form-control" placeholder="Açıklama" id="dosya-aciklama"></textarea>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <div class="pull-left">
+                    <a class="btn btn-warning" id="btn-onizle" target="_blank">
+                        <i class="fa fa-eye"></i> Önizle
+                    </a>
+                </div>
+
+                <div class="pull-right">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">
+                        <i class="fa fa-close"></i> Kapat
+                    </button>
+                    <button type="button" class="btn btn-success" onclick="funcUpdateFile()">
+                        <i class="fa fa-check"></i> Kaydet
+                    </button>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+@section scripts
+{
+    <script src="~/Scripts/model-box.js"></script>
+    <script>
+        var tempDosyaId = 0;
+        function funcGetFileDetail(id) {
+            tempDosyaId = id;
+            $.ajax({
+                url: "/home/getfiledetailbyid?Id=" + id,
+                success: function (e) {
+                    $("#orjinal-adi").html(e.DosyaAdi);
+                    $("#dosya-boyutu").html(e.DosyaBoyutu);
+                    $("#dosya-tipi").html(e.DosyaTipi);
+                    $("#url-yolu").val(e.UrlYolu);
+                    $("#dosya-baslik").val(e.Baslik);
+                    $("#dosya-aciklama").val(e.Aciklama);
+                    $("#btn-onizle").attr("href", e.UrlYolu);
+
+                    if (e.DosyaTipi.indexOf("image") !== -1) {
+                        $("#file-content").html("<img src='" + e.UrlYolu + "' class='img-responsive'/>");
+
+                    } else if (e.DosyaTipi.indexOf("video") !== -1 || e.DosyaTipi.indexOf("pdf") !== -1 || e.DosyaTipi.indexOf("audio") !== -1) {
+                        $("#file-content").html("<iframe src='" + e.UrlYolu + "' width='500' class='img-responsive' style='min-height: 100%;'></iframe>");
+
+                    } else {
+                        $("#file-content").html("<i class='fa fa-file-o' style='font-size: 400px; padding: 50px;'></i>");
+                    }
+                }
+            });
+        }
+
+        function funcUpdateFile() {
+            $.ajax({
+                url: "/home/updatefile",
+                data: { Id: tempDosyaId, Baslik: $("#dosya-baslik").val(), Aciklama: $("#dosya-aciklama").val() },
+                success: function (e) {
+                    if (e === "E") {
+                        $("#fileEditModal").modal("hide");
+                    } else {
+
+                    }
+                }
+            });
+        }
+    </script>
+}

@@ -1,6 +1,7 @@
 ﻿using Galeri.Web.Models;
 using Galeri.Web.Utilities;
 using System;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -23,7 +24,20 @@ namespace Galeri.Web.Controllers
 
         public ActionResult Upload()
         {
+            if (Session["value"] != null)
+            {
+                return RedirectToAction("Index");
+            }
             return View();
+        }
+
+        public ActionResult Galeri()
+        {
+            using (GaleriEntities context = new GaleriEntities())
+            {
+                var dosya = context.Dosya.OrderByDescending(d => d.Id).ToList();
+                return View(dosya);
+            }
         }
 
         public ActionResult FileUpload()
@@ -63,6 +77,47 @@ namespace Galeri.Web.Controllers
                 }
             }
             return Json("");
+        }
+
+        public ActionResult GetFileDetailById(int id)
+        {
+            var file = _context.Dosya.Where(d => d.Id == id).Select(d => new
+            {
+                d.Id,
+                d.DosyaAdi,
+                DosyaBoyutu = d.BoyutKisaltma,
+                d.DosyaTipi,
+                UrlYolu = "/home/fileview/" + d.Id,
+                d.Baslik,
+                d.Aciklama
+            }).FirstOrDefault();
+            return Json(file, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult UpdateFile(Models.File file)
+        {
+            try
+            {
+                var fileInDb = _context.Dosya.FirstOrDefault(d => d.Id == file.Id);
+                if (fileInDb != null)
+                {
+                    fileInDb.Baslik = file.Baslik;
+                    fileInDb.Aciklama = file.Aciklama;
+                    _context.Entry(fileInDb).State = EntityState.Modified;
+                    _context.SaveChanges();
+                }
+                return Json("E", JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+                return Json("H", JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public FileContentResult FileView(int id)
+        {
+            var list = _context.Dosya.FirstOrDefault(d => d.Id == id);
+            return new FileContentResult(list?.Deger, list?.DosyaTipi);
         }
     }
 }
