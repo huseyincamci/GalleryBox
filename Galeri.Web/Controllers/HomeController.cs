@@ -1,6 +1,8 @@
 ﻿using Galeri.Web.Models;
+using Galeri.Web.Utilities;
 using System;
 using System.IO;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
@@ -12,7 +14,11 @@ namespace Galeri.Web.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            using (GaleriEntities context = new GaleriEntities())
+            {
+                var dosya = context.Dosya.OrderByDescending(d => d.Id).ToList();
+                return View(dosya);
+            }
         }
 
         public ActionResult Upload()
@@ -34,7 +40,7 @@ namespace Galeri.Web.Controllers
                     }
                     else
                     {
-                        Session["value"] = ByteBirlestir((byte[])Session["value"], value);
+                        Session["value"] = UtilityManager.ByteBirlestir((byte[])Session["value"], value);
                     }
 
 
@@ -46,22 +52,17 @@ namespace Galeri.Web.Controllers
                             DosyaAdi = file.FileName,
                             DosyaBoyutu = ((byte[])Session["value"]).Length.ToString(),
                             DosyaTipi = file.ContentType,
+                            Ikon = UtilityManager.SetIcon(file.ContentType),
+                            BoyutKisaltma = UtilityManager.BytesToString(((byte[])Session["value"]).Length),
+                            Renk = UtilityManager.SetClass(file.ContentType),
                             KayitTarihi = DateTime.Now
                         });
                         _context.SaveChanges();
+                        Session["value"] = null;
                     }
-                    Session["value"] = null;
                 }
             }
             return Json("");
-        }
-
-        private static byte[] ByteBirlestir(byte[] previous, byte[] next)
-        {
-            byte[] output = new byte[previous.Length + next.Length];
-            Buffer.BlockCopy(previous, 0, output, 0, previous.Length);
-            Buffer.BlockCopy(next, 0, output, previous.Length, next.Length);
-            return output;
         }
     }
 }

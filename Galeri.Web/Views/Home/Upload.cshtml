@@ -73,6 +73,7 @@
             progressInterval: 100,
             maxChunkSize: 10000,
             add: function (e, data) {
+                barCount = 0;
                 $("#fileList").removeClass("hidden");
                 $("#fileList").append("<h5>Dosya Adı: " + data.files[0].name + "</h5>");
                 $("#fileList").append("<h5>Dosya Boyutu: " + bytesToSize(data.files[0].size, 2) + "</h5>");

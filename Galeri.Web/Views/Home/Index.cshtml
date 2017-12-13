@@ -1,4 +1,7 @@
-﻿@{
+﻿@using Galeri.Web.Models
+@model IEnumerable<Galeri.Web.Models.Dosya>
+
+@{
     ViewBag.Title = "Anasayfa";
 }
 @section styles
@@ -8,162 +11,42 @@
     <link href="~/Content/model-box.css" rel="stylesheet" />
     <link href="~/Content/file-edit-form.css" rel="stylesheet" />
 }
+@{
+
+}
 <div class="container" style="margin-top: 25px">
     <div class="row">
-        <div class="col-lg-3 col-sm-6">
-            <div class="card hovercard">
-                <div class="cardheader bg-blue">
-                    <a href="#fileEditModal" data-toggle="modal">
-                        <i class="fa fa-edit pull-right" id="card-edit"></i>
-                    </a>
-                </div>
-                <div class="avatar">
-                    <i class="fa fa-file-word-o card-icon" aria-hidden="true"></i>
-                </div>
-                <div class="info">
-                    <div class="title">
-                        Tincidunt integer eu augue augue nunc elit dolor
+        @foreach (var dosya in Model)
+        {
+            <div class="col-lg-3 col-sm-6">
+                <div class="card hovercard">
+                    <div class="cardheader @dosya.Renk">
+                        <a href="#fileEditModal" data-toggle="modal">
+                            <i class="fa fa-edit pull-right" id="card-edit"></i>
+                        </a>
                     </div>
-                </div>
-                <div class="bottom">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <i class="fa fa-hdd-o"></i> 25.7 MB
-                        </div>
-                        <div class="col-md-6">
-                            <i class="fa fa-file-word-o"></i>
+                    <div class="avatar">
+                        <i class="@dosya.Ikon card-icon" aria-hidden="true"></i>
+                    </div>
+                    <div class="info">
+                        <div class="title">
+                            @dosya.DosyaAdi
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-sm-6">
-            <div class="card hovercard">
-                <div class="cardheader bg-orange">
-                    <i class="fa fa-edit pull-right" id="card-edit"></i>
-                </div>
-                <div class="avatar">
-                    <i class="fa fa-file-powerpoint-o card-icon" aria-hidden="true"></i>
-                </div>
-                <div class="info">
-                    <div class="title">
-                        Tincidunt integer eu augue augue nunc elit dolor
-                    </div>
-                </div>
-                <div class="bottom">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <i class="fa fa-hdd-o"></i> 25.7 MB
-                        </div>
-                        <div class="col-md-6">
-                            <i class="fa fa-file-powerpoint-o"></i>
+                    <div class="bottom">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <i class="fa fa-hdd-o"></i> @dosya.BoyutKisaltma
+                            </div>
+                            <div class="col-md-6">
+                                <i class="@dosya.Ikon"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-lg-3 col-sm-6">
-            <div class="card hovercard">
-                <div class="cardheader bg-pdf">
-                    <i class="fa fa-edit pull-right" id="card-edit"></i>
-                </div>
-                <div class="avatar">
-                    <i class="fa fa-file-pdf-o card-icon" aria-hidden="true"></i>
-                </div>
-                <div class="info">
-                    <div class="title">
-                        Tincidunt integer eu augue augue nunc elit dolor
-                    </div>
-                </div>
-                <div class="bottom">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <i class="fa fa-hdd-o"></i> 25.7 MB
-                        </div>
-                        <div class="col-md-6">
-                            <i class="fa fa-file-pdf-o"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-sm-6">
-            <div class="card hovercard">
-                <div class="cardheader bg-green-2">
-                    <i class="fa fa-edit pull-right" id="card-edit"></i>
-                </div>
-                <div class="avatar">
-                    <i class="fa fa-file-excel-o card-icon" aria-hidden="true"></i>
-                </div>
-                <div class="info">
-                    <div class="title">
-                        Tincidunt integer eu augue augue nunc elit dolor
-                    </div>
-                </div>
-                <div class="bottom">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <i class="fa fa-hdd-o"></i> 25.7 MB
-                        </div>
-                        <div class="col-md-6">
-                            <i class="fa fa-file-excel-o"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-sm-6">
-            <div class="card hovercard">
-                <div class="cardheader bg-sound">
-                    <i class="fa fa-edit pull-right" id="card-edit"></i>
-                </div>
-                <div class="avatar">
-                    <i class="fa fa-file-sound-o card-icon" aria-hidden="true"></i>
-                </div>
-                <div class="info">
-                    <div class="title">
-                        Tincidunt integer eu augue augue nunc elit dolor
-                    </div>
-                </div>
-                <div class="bottom">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <i class="fa fa-hdd-o"></i> 25.7 MB
-                        </div>
-                        <div class="col-md-6">
-                            <i class="fa fa-file-sound-o"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-sm-6">
-            <div class="card hovercard">
-                <div class="cardheader bg-archive">
-                    <i class="fa fa-edit pull-right" id="card-edit"></i>
-                </div>
-                <div class="avatar">
-                    <i class="fa fa-file-archive-o card-icon" aria-hidden="true"></i>
-                </div>
-                <div class="info">
-                    <div class="title">
-                        Tincidunt integer eu augue augue nunc elit dolor
-                    </div>
-                </div>
-                <div class="bottom">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <i class="fa fa-hdd-o"></i> 25.7 MB
-                        </div>
-                        <div class="col-md-6">
-                            <i class="fa fa-file-archive-o"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        }
     </div>
-
     @*modal*@
 
     <div class="modal img-modal" id="fileEditModal">
@@ -184,7 +67,7 @@
                                 @*Dosya Düzenleme*@
                                 <div class="form-area">
                                     <form role="form">
-                                        <br style="clear:both">
+                                        <br style="clear: both">
                                         <div class="form-group">
                                             <label class="control-label"><i class="fa fa-file-text"></i> Orjinal Adı: </label>
                                         </div>
