@@ -118,7 +118,10 @@
 {
     <script src="~/Scripts/model-box.js"></script>
     <script>
+
+        //Modal da gösterilen dosya bilgilerini güncellemek için id yi tut.
         var tempDosyaId = 0;
+        //Id ye göre dosya bilgilerini getir
         function funcGetFileDetail(id) {
             tempDosyaId = id;
             $.ajax({
@@ -139,12 +142,13 @@
                         $("#file-content").html("<iframe src='" + e.UrlYolu + "' width='500' class='img-responsive' style='min-height: 100%;'></iframe>");
 
                     } else {
-                        $("#file-content").html("<i class='fa fa-file-o' style='font-size: 400px; padding: 50px;'></i>");
+                        $("#file-content").html("<i class='fa fa-file-o' style='font-size: 1000%; position: absolute; top: 50%; left: 50%; margin: -60px'></i>");
                     }
                 }
             });
         }
 
+        //Dosya bilgilerini güncelle
         function funcUpdateFile() {
             $.ajax({
                 url: "/home/updatefile",
@@ -158,5 +162,10 @@
                 }
             });
         }
+
+        //Edit Modal kapandığında videoyu da kapat
+        $("#fileEditModal").on('hidden.bs.modal', function (e) {
+            $("#fileEditModal iframe").attr("src", "");
+        });
     </script>
 }

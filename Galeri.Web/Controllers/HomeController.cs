@@ -2,6 +2,7 @@
 using Galeri.Web.Utilities;
 using System;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -71,7 +72,14 @@ namespace Galeri.Web.Controllers
                             Renk = UtilityManager.SetClass(file.ContentType),
                             KayitTarihi = DateTime.Now
                         });
-                        _context.SaveChanges();
+                        try
+                        {
+                            _context.SaveChanges();
+                        }
+                        catch (Exception e)
+                        {
+                            Debug.WriteLine(e.Message);
+                        }
                         Session["value"] = null;
                     }
                 }
